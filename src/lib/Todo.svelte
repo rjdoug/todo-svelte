@@ -1,7 +1,11 @@
+<script lang="ts">
+	export let text: string;
+</script>
+
 <li class="todo-list list-item-view">
 	<span>
 		<button class="btn btn-done fa-solid fa-square" />
-		<span>First Todo</span>
+		<span>{text}</span>
 	</span>
 	<button class="btn btn-delete fa-solid fa-trash" />
 </li>

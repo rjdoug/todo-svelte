@@ -2,11 +2,30 @@
 	import Todos from '$lib/Todos.svelte';
 	import Form from '$lib/Form.svelte';
 	import Header from '$lib/header.svelte';
+	import type { Todo } from '$lib/types/Todo';
+
+	let todos: Todo[] = [
+		{
+			id: 1,
+			text: 'First Todo',
+			completed: true
+		},
+		{
+			id: 2,
+			text: 'Second Todo',
+			completed: false
+		},
+		{
+			id: 3,
+			text: 'Third Todo',
+			completed: true
+		}
+	];
 </script>
 
 <div id="app-container" class="app-container">
 	<Header />
-	<Todos />
+	<Todos {todos} />
 	<Form />
 </div>
 
