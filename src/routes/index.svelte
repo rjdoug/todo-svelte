@@ -1,7 +1,7 @@
 <script lang="ts">
 	import Todos from '$lib/Todos.svelte';
 	import Form from '$lib/Form.svelte';
-	import Header from '$lib/header.svelte';
+	import Header from '$lib/Header.svelte';
 	import type { Todo } from '$lib/types/Todo';
 
 	let todos: Todo[] = [
