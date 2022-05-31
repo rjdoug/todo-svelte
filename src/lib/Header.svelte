@@ -1,6 +1,11 @@
+<script lang="ts">
+	export let remaining: number;
+	export let total: number;
+</script>
+
 <div class="app-header">
-	<div>10 Total</div>
-	<div class="task-count">1 Remaining</div>
+	<div>{total} Total</div>
+	<div class="task-count">{remaining} Remaining</div>
 </div>
 
 <style>
