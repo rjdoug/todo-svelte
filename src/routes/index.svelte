@@ -21,11 +21,18 @@
 			completed: true
 		}
 	];
+
+	function todoChecked(todoID: number) {
+		todos.map((todo) => {
+			if (todo.id === todoID) todo.completed = !todo.completed;
+		});
+		todos = todos;
+	}
 </script>
 
 <div id="app-container" class="app-container">
 	<Header />
-	<Todos {todos} />
+	<Todos {todos} on:completed={(e) => todoChecked(e.detail.id)} />
 	<Form />
 </div>
 

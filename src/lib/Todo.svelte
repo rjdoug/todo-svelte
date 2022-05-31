@@ -1,11 +1,25 @@
 <script lang="ts">
-	export let text: string;
+	import { createEventDispatcher } from 'svelte';
+	import type { Todo } from './types/Todo';
+
+	export let todo: Todo;
+
+	const dispatch = createEventDispatcher();
+
+	function completeClick() {
+		dispatch('completed', {
+			id: todo.id
+		});
+	}
 </script>
 
-<li class="todo-list list-item-view">
+<li class="todo-list list-item-view {todo.completed && 'completed'}">
 	<span>
-		<button class="btn btn-done fa-solid fa-square" />
-		<span>{text}</span>
+		<button
+            on:click={() => completeClick()}
+			class="btn btn-done fa-solid fa-square {todo.completed ? 'fa-square-check' : 'fa-squre'}"
+		/>
+		<span>{todo.text}</span>
 	</span>
 	<button class="btn btn-delete fa-solid fa-trash" />
 </li>
