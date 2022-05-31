@@ -7,7 +7,13 @@
 	const dispatch = createEventDispatcher();
 
 	function completeClick() {
-		dispatch('completed', {
+		dispatch('check', {
+			id: todo.id
+		});
+	}
+
+	function deleteClick() {
+		dispatch('deleted', {
 			id: todo.id
 		});
 	}
@@ -16,12 +22,12 @@
 <li class="todo-list list-item-view {todo.completed && 'completed'}">
 	<span>
 		<button
-            on:click={() => completeClick()}
+			on:click={() => completeClick()}
 			class="btn btn-done fa-solid fa-square {todo.completed ? 'fa-square-check' : 'fa-squre'}"
 		/>
 		<span>{todo.text}</span>
 	</span>
-	<button class="btn btn-delete fa-solid fa-trash" />
+	<button on:click={() => deleteClick()} class="btn btn-delete fa-solid fa-trash" />
 </li>
 
 <style>

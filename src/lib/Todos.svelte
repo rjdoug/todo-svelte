@@ -9,7 +9,7 @@
 <div class="app-body">
 	<ul>
 		{#each todos as todo}
-			<Todo {todo} on:completed />
+			<Todo {todo} on:check on:deleted />
 		{/each}
 	</ul>
 </div>

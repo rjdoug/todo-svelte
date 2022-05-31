@@ -22,17 +22,28 @@
 		}
 	];
 
-	function todoChecked(todoID: number) {
+	// todoChecked inverts the compelete status of the give todoID
+	function todoCheck(todoID: number) {
 		todos.map((todo) => {
 			if (todo.id === todoID) todo.completed = !todo.completed;
 		});
 		todos = todos;
 	}
+
+	function todoDelete(todoID: number) {
+		todos = todos.filter((todo) => {
+			return todo.id != todoID;
+		});
+	}
 </script>
 
 <div id="app-container" class="app-container">
 	<Header />
-	<Todos {todos} on:completed={(e) => todoChecked(e.detail.id)} />
+	<Todos
+		{todos}
+		on:check={(e) => todoCheck(e.detail.id)}
+		on:deleted={(e) => todoDelete(e.detail.id)}
+	/>
 	<Form />
 </div>
 
