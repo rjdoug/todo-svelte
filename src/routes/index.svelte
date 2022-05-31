@@ -22,6 +22,8 @@
 		}
 	];
 
+	let formText = '';
+
 	// todoChecked inverts the compelete status of the give todoID
 	function todoCheck(todoID: number) {
 		todos.map((todo) => {
@@ -30,10 +32,23 @@
 		todos = todos;
 	}
 
+	// todoDelete will delete the todo of the given id
 	function todoDelete(todoID: number) {
 		todos = todos.filter((todo) => {
 			return todo.id != todoID;
 		});
+	}
+
+	function addTodo() {
+		let id = Math.max(...todos.map((todo) => todo.id)) + 1;
+		let todo: Todo = {
+			id: id,
+			text: formText,
+			completed: false
+		};
+		todos.push(todo);
+		formText = '';
+		todos = todos
 	}
 </script>
 
@@ -44,7 +59,12 @@
 		on:check={(e) => todoCheck(e.detail.id)}
 		on:deleted={(e) => todoDelete(e.detail.id)}
 	/>
-	<Form />
+	<Form
+		bind:text={formText}
+		on:addTodo={() => {
+			addTodo();
+		}}
+	/>
 </div>
 
 <style>
