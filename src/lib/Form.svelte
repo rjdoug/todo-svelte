@@ -1,7 +1,32 @@
+<script lang="ts">
+	import { createEventDispatcher } from 'svelte';
+	const dispatch = createEventDispatcher();
+
+	export let text: string;
+
+	function addTodo() {
+		if (text === '') return;
+		dispatch('addTodo');
+	}
+
+	function handleKeydown(event: any) {
+		if (event.key == 'Enter') {
+			addTodo();
+		}
+	}
+</script>
+
 <!-- Add form at bottom -->
 <div class="app-form">
-	<input placeholder="Add Todo.." type="text" class="input-text" name="" />
-	<button class="btn fa-solid fa-plus" />
+	<input
+		on:keydown={handleKeydown}
+		placeholder="Add Todo.."
+		type="text"
+		class="input-text"
+		name=""
+		bind:value={text}
+	/>
+	<button on:click={() => addTodo()} class="btn fa-solid fa-plus" />
 </div>
 
 <style>

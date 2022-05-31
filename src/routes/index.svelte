@@ -2,12 +2,69 @@
 	import Todos from '$lib/Todos.svelte';
 	import Form from '$lib/Form.svelte';
 	import Header from '$lib/header.svelte';
+	import type { Todo } from '$lib/types/Todo';
+
+	let todos: Todo[] = [
+		{
+			id: 1,
+			text: 'First Todo',
+			completed: true
+		},
+		{
+			id: 2,
+			text: 'Second Todo',
+			completed: false
+		},
+		{
+			id: 3,
+			text: 'Third Todo',
+			completed: true
+		}
+	];
+
+	let formText = '';
+
+	// todoChecked inverts the compelete status of the give todoID
+	function todoCheck(todoID: number) {
+		todos.map((todo) => {
+			if (todo.id === todoID) todo.completed = !todo.completed;
+		});
+		todos = todos;
+	}
+
+	// todoDelete will delete the todo of the given id
+	function todoDelete(todoID: number) {
+		todos = todos.filter((todo) => {
+			return todo.id != todoID;
+		});
+	}
+
+	function addTodo() {
+		let id = Math.max(...todos.map((todo) => todo.id)) + 1;
+		let todo: Todo = {
+			id: id,
+			text: formText,
+			completed: false
+		};
+		todos.push(todo);
+		formText = '';
+		todos = todos
+	}
 </script>
 
 <div id="app-container" class="app-container">
 	<Header />
-	<Todos />
-	<Form />
+	<Todos
+		{todos}
+		on:check={(e) => todoCheck(e.detail.id)}
+		on:deleted={(e) => todoDelete(e.detail.id)}
+	/>
+	<Form
+		bind:text={formText}
+		on:addTodo={() => {
+			addTodo();
+		}}
+	/>
 </div>
 
 <style>
