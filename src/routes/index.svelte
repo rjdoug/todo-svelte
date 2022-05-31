@@ -23,6 +23,10 @@
 	];
 
 	let formText = '';
+	$: total = todos.length;
+	$: remaining = todos.reduce((n, todo) => {
+		return todo.completed ? n : n + 1;
+	}, 0);
 
 	// todoChecked inverts the compelete status of the give todoID
 	function todoCheck(todoID: number) {
@@ -39,6 +43,8 @@
 		});
 	}
 
+	/* addTodo creates a new todo with a unique id, formText and defaults
+	 to not completed */
 	function addTodo() {
 		let id = Math.max(...todos.map((todo) => todo.id)) + 1;
 		let todo: Todo = {
@@ -48,12 +54,12 @@
 		};
 		todos.push(todo);
 		formText = '';
-		todos = todos
+		todos = todos;
 	}
 </script>
 
 <div id="app-container" class="app-container">
-	<Header />
+	<Header {remaining} {total}/>
 	<Todos
 		{todos}
 		on:check={(e) => todoCheck(e.detail.id)}
